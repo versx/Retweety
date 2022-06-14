@@ -69,3 +69,7 @@ Once the project is cloned and .NET 5 SDK is installed continue on:
 
 ## Twitter Handle Converter  
 https://tweeterid.com/  
+
+
+## Preview  
+![Retweet Preview](.github/images/tweet.png)
