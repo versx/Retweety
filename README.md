@@ -1,4 +1,4 @@
-[![Build](https://github.com/versx/Retweety/workflows/.NET/badge.svg)](https://github.com/versx/Retweety/actions)
+[![Build](https://github.com/versx/Retweety/workflows/.NET%205.0/badge.svg)](https://github.com/versx/Retweety/actions)
 [![GitHub Release](https://img.shields.io/github/release/versx/Retweety.svg)](https://github.com/versx/Retweety/releases/)
 [![Discord](https://img.shields.io/discord/552003258000998401.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/zZ9h9Xa)  
 
@@ -11,19 +11,30 @@ Repost tweeted messages from interested Twitter users via Discord webhooks.
 
 ## Getting Started  
 
-1. Run automated install script:  
+### _Automated_  
+1. Run automated install script (installs .NET 5 SDK and clones repository):  
 ```
 curl https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh > dotnet-install.sh && chmod +x install.sh && ./install.sh && rm install.sh
 ```
-2. Head to [Twitter's Developer Portal](https://developer.twitter.com/en/portal/dashboard)  
-3. Create a new Twitter App, set name, description, and website, ignore callback url.  
-4. Click `Keys and Access Tokens` tab to get your Twitter App credentials.  
-5. Input consumer key, consumer secret, access token, and access token secret in `bin/config.json` config file.  
-6. Set interested user ID(s) as property key(s) under `accounts` config section.  
-7. Set user ID key to take a list of webhook urls that will receive the tweeted message.  
-8. Set bot properties under `bot` config section.  
-9. Build executable file `dotnet build`.  
-10. Start Retweety from `bin` folder: `dotnet Retweety.dll`.  
+
+### _Manually_  
+Alternatively, if you already have .NET 5 SDK installed, run the following commands before proceeding below.  
+
+1. `git clone https://github.com/versx/Retweety && cd Retweety`  
+2. `dotnet build`  
+3. `cp config.example.json bin/config.json`  
+
+---
+Once the project is cloned and .NET 5 SDK is installed continue on:  
+1. Head to [Twitter's Developer Portal](https://developer.twitter.com/en/portal/dashboard)  
+2. Create a new Twitter App, set name, description, and website, ignore callback url.  
+3. Click `Keys and Access Tokens` tab to get your Twitter App credentials.  
+4. Input your Twitter App's consumer key, consumer secret, access token, and access token secret in the `bin/config.json` config file.  
+5. Set interested user ID(s) as property key(s) under the `accounts` config section.  
+6. Set a new JSON key using the user ID of the Twitter account to take a list of webhook urls that will receive the tweeted message. See the below config example format if unsure.  
+7. Input the bot properties under the `bot` config section to set the desired name and optional icon url.  
+8. Build the executable file `dotnet build`.  
+9. Start Retweety from the `bin` folder: `dotnet Retweety.dll`.  
 
 
 ## Configuration  
