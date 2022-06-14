@@ -1,0 +1,15 @@
+{
+    "consumerKey": "<TWITTER_ACCOUNT_CONSUMER_KEY>",
+    "consumerSecret": "<TWITTER_ACCOUNT_CONSUMER_SECRET>",
+    "accessToken": "<TWITTER_ACCOUNT_ACCESS_TOKEN>",
+    "accessTokenSecret": "<TWITTER_ACCOUNT_TOKEN_SECRET>",
+    "accounts": {
+        "2839430431": [
+            "https://discordapp.com/...."
+        ]
+    },
+    "bot": {
+        "name": "Retweety",
+        "iconUrl": ""
+    },
+}
