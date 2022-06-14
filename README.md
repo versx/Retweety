@@ -14,7 +14,7 @@ Repost tweeted messages from interested Twitter users via Discord webhooks.
 ### _Automated_  
 1. Run automated install script (installs .NET 5 SDK and clones repository):  
 ```
-curl https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh > dotnet-install.sh && chmod +x install.sh && ./install.sh && rm install.sh
+curl https://raw.githubusercontent.com/versx/Retweety/master/scripts/install.sh > install.sh && chmod +x install.sh && ./install.sh && rm install.sh
 ```
 
 ### _Manually_  
