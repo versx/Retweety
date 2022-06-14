@@ -50,17 +50,17 @@ Once the project is cloned and .NET 5 SDK is installed continue on:
     "accessTokenSecret": "<TWITTER_ACCOUNT_TOKEN_SECRET>",
     // Dictionary of interested users to repost tweeted messages
     "accounts": {
-        // User ID
+        // Twitter User ID to follow and repost tweets from
         "2839430431": [
-            // List of webhooks tweets will be sent to
+            // List of webhooks the tweets will be sent to
             "https://discordapp.com/...."
         ]
     },
     // Bot display settings for embed post
     "bot": {
-        // Bot name
+        // Bot name for Discord embed message
         "name": "Retweety",
-        // Bot icon url
+        // Bot icon url for Discord embed message (optional)
         "iconUrl": ""
     },
 }
