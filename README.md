@@ -1,4 +1,4 @@
-[![Build](https://github.com/versx/Retweety/workflows/.NET/badge.svg)](https://github.com/versx/Retweety/actions)
+[![Build](https://github.com/versx/Retweety/workflows/.NET%205.0/badge.svg)](https://github.com/versx/Retweety/actions)
 [![GitHub Release](https://img.shields.io/github/release/versx/Retweety.svg)](https://github.com/versx/Retweety/releases/)
 [![Discord](https://img.shields.io/discord/552003258000998401.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/zZ9h9Xa)  
 
