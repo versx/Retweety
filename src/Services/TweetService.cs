@@ -308,54 +308,46 @@
         {
             var model = new
             {
-                url = tweet.Url,
-                text = tweet.Text,
-                full_text = tweet.FullText,
-                id = tweet.Id,
                 // TODO: Add more properties
                 //tweet.Contributors
                 //tweet.ContributorsIds
                 //tweet.Coordinates
-                //tweet.CreatedAt
+                created_at = tweet.CreatedAt,
                 //tweet.CreatedBy (IUser)
                 //tweet.CurrentUserRetweetIdentifier
                 //tweet.Entities
                 //tweet.ExtendedTweet
-                //tweet.FavoriteCount
-                //tweet.Favorited
-                //tweet.FilterLevel
-                //tweet.FullText
+                favorite_count = tweet.FavoriteCount,
+                favorited = tweet.Favorited,
+                filter_level = tweet.FilterLevel,
+                full_text = tweet.FullText,
                 //tweet.Hashtags
-                //tweet.Id
-                //tweet.IdStr
+                id = tweet.Id,
                 //tweet.InReplyToScreenName
                 //tweet.InReplyToStatusId
-                //tweet.InReplyToStatusIdStr
                 //tweet.InReplyToUserId
-                //tweet.InReplyToUserIdStr
-                //tweet.IsRetweet
-                //tweet.Language
+                is_retweet = tweet.IsRetweet,
+                language = tweet.Language,
                 //tweet.Media
                 //tweet.Place
-                //tweet.PossiblySensitive
-                //tweet.Prefix
-                //tweet.QuoteCount
+                possibly_sensitive = tweet.PossiblySensitive,
+                prefix = tweet.Prefix,
+                quote_count = tweet.QuoteCount,
                 //tweet.QuotedStatusId
-                //tweet.QuotedStatusIdStr
                 //tweet.QuotedTweet
-                //tweet.ReplyCount
-                //tweet.RetweetCount
-                //tweet.Retweeted
+                reply_count = tweet.ReplyCount,
+                retweet_count = tweet.RetweetCount,
+                retweeted = tweet.Retweeted,
                 //tweet.RetweetedTweet
                 //tweet.SafeDisplayTextRange
                 //tweet.Scopes
                 //tweet.Source
-                //tweet.Suffix
-                //tweet.Text
-                //tweet.Truncated
+                suffix = tweet.Suffix,
+                text = tweet.Text,
+                truncated = tweet.Truncated,
                 //tweet.TweetDTO
-                //tweet.TweetMode
-                //tweet.Url
+                tweet_mode = tweet.TweetMode,
+                url = tweet.Url,
                 //tweet.Urls
                 //tweet.UserMentions
                 //tweet.WithheldCopyright

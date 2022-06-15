@@ -75,6 +75,22 @@ Once the project is cloned and .NET 5 SDK is installed continue on:
 | `text` | This is a test tweet | Tweet text |  
 | `full_text` | This is a test tweet from user test | Full Tweet text |  
 | `id` | 34343434343 | Tweet ID |  
+| `created_at` |   |   |  
+| `favorite_count` |   |   |  
+| `favorited` |   |   |  
+| `filter_level` |   |   |  
+| `is_retweet` |   |   |  
+| `language` |   |   |  
+| `possibly_sensitive` |   |   |  
+| `prefix` |   |   |  
+| `quote_count` |   |   |  
+| `reply_count` |   |   |  
+| `retweet_count` |   |   |  
+| `retweeted` |   |   |  
+| `suffix` |   |   |  
+| `truncated` |   |   |  
+| `tweet_mode` |   |   |  
+| `` |   |   |  
 
 
 ## Twitter Handle Converter  
