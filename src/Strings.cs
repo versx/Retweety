@@ -20,5 +20,7 @@
         );
 
         public const uint ValidationIntervalM = 5;
+
+        public const string DefaultEmbedTemplate = "{{url}}";
     }
 }

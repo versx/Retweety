@@ -10,9 +10,6 @@
     {
         #region Properties
 
-        [JsonPropertyName("enabled")]
-        public bool Enabled { get; set; }
-
         [JsonPropertyName("consumerKey")]
         public string ConsumerKey { get; set; }
 
@@ -30,6 +27,9 @@
 
         [JsonPropertyName("bot")]
         public BotConfig Bot { get; set; } = new();
+
+        [JsonPropertyName("embedTemplate")]
+        public string EmbedTemplate { get; set; } = "{{url}}";
 
         #endregion
 

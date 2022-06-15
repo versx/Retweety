@@ -69,14 +69,14 @@
             _logger.Trace("TweetService::Start");
 
             // Enable timer if not already enabled
-            if (!_timer.Enabled)
-            {
-                _timer.Start();
+            if (_timer.Enabled)
+                return;
 
-                // Check if interested users to follow have been added,
-                // if not add them to filter stream.
-                AddTwitterFollowers();
-            }
+            _timer.Start();
+
+            // Check if interested users to follow have been added,
+            // if not add them to filter stream.
+            AddTwitterFollowers();
         }
 
         /// <summary>
@@ -236,10 +236,6 @@
         /// <param name="tweet">Tweet to send.</param>
         private void SendTwitterWebhook(ITweet tweet)
         {
-            // Skip retweets if not enabled in config
-            if (!_config.Enabled)
-                return;
-
             var userId = (ulong)tweet.CreatedBy.Id;
             _logger.Debug($"Tweet [Owner={tweet.CreatedBy.Name} ({userId}), Url={tweet.Url}]");
 
@@ -250,12 +246,15 @@
                 return;
             }
 
+            // Parse Discord embed via user defined template
+            var templateData = ParseEmbedTemplate(tweet, _config.EmbedTemplate ?? Strings.DefaultEmbedTemplate);
+
             // Build the embed once then loop all webhooks
             var embed = new DiscordWebhookMessage
             {
                 Username = _config.Bot?.Name ?? Strings.BotName,
                 AvatarUrl = _config.Bot?.IconUrl ?? Strings.BotIconUrl,
-                Content = tweet.Url
+                Content = templateData,
             };
             var json = embed.Build();
 
@@ -299,6 +298,325 @@
             }
         }
 
+        /// <summary>
+        /// Parse Tweet embed message via user defined templating keys
+        /// </summary>
+        /// <param name="tweet">Tweet model</param>
+        /// <param name="template">Template</param>
+        /// <returns></returns>
+        private static string ParseEmbedTemplate(ITweet tweet, string template)
+        {
+            var model = new
+            {
+                url = tweet.Url,
+                text = tweet.Text,
+                full_text = tweet.FullText,
+                id = tweet.Id,
+                // TODO: Add more properties
+                //tweet.Contributors
+                //tweet.ContributorsIds
+                //tweet.Coordinates
+                //tweet.CreatedAt
+                //tweet.CreatedBy (IUser)
+                //tweet.CurrentUserRetweetIdentifier
+                //tweet.Entities
+                //tweet.ExtendedTweet
+                //tweet.FavoriteCount
+                //tweet.Favorited
+                //tweet.FilterLevel
+                //tweet.FullText
+                //tweet.Hashtags
+                //tweet.Id
+                //tweet.IdStr
+                //tweet.InReplyToScreenName
+                //tweet.InReplyToStatusId
+                //tweet.InReplyToStatusIdStr
+                //tweet.InReplyToUserId
+                //tweet.InReplyToUserIdStr
+                //tweet.IsRetweet
+                //tweet.Language
+                //tweet.Media
+                //tweet.Place
+                //tweet.PossiblySensitive
+                //tweet.Prefix
+                //tweet.QuoteCount
+                //tweet.QuotedStatusId
+                //tweet.QuotedStatusIdStr
+                //tweet.QuotedTweet
+                //tweet.ReplyCount
+                //tweet.RetweetCount
+                //tweet.Retweeted
+                //tweet.RetweetedTweet
+                //tweet.SafeDisplayTextRange
+                //tweet.Scopes
+                //tweet.Source
+                //tweet.Suffix
+                //tweet.Text
+                //tweet.Truncated
+                //tweet.TweetDTO
+                //tweet.TweetMode
+                //tweet.Url
+                //tweet.Urls
+                //tweet.UserMentions
+                //tweet.WithheldCopyright
+                //tweet.WithheldInCountries
+                //tweet.WithheldScope
+            };
+            var templateData = TemplateRenderer.Parse(template, model);
+            return templateData;
+        }
+
         #endregion
     }
 }
+
+#region ITweet Properties
+
+/*
+//
+// Summary:
+//     Client used by the instance to perform any request to Twitter
+ITwitterClient Client { get; set; }
+
+//
+// Summary:
+//     Creation date of the Tweet
+DateTimeOffset CreatedAt { get; }
+
+//
+// Summary:
+//     Formatted text of the tweet.
+string Text { get; }
+
+//
+// Summary:
+//     Prefix of an extended tweet.
+string Prefix { get; }
+
+//
+// Summary:
+//     Suffix of an extended tweet.
+string Suffix { get; }
+
+//
+// Summary:
+//     Full text of an extended tweet.
+string FullText { get; }
+
+//
+// Summary:
+//     Content display text range for FullText.
+int[] DisplayTextRange { get; }
+
+//
+// Summary:
+//     The range of text to be displayed for any Tweet. If this is an Extended Tweet,
+//     this will be the range supplied by Twitter. If this is an old-style 140 character
+//     Tweet, the range will be 0 - Length.
+int[] SafeDisplayTextRange { get; }
+
+//
+// Summary:
+//     Extended Tweet details.
+IExtendedTweet ExtendedTweet { get; }
+
+//
+// Summary:
+//     Coordinates of the location from where the tweet has been sent
+ICoordinates Coordinates { get; }
+
+//
+// Summary:
+//     source field
+string Source { get; }
+
+//
+// Summary:
+//     Whether the tweet text was truncated because it was longer than 140 characters.
+bool Truncated { get; }
+
+//
+// Summary:
+//     Number of times this Tweet has been replied to This property is only available
+//     with the Premium and Enterprise tier products.
+int? ReplyCount { get; }
+
+//
+// Summary:
+//     In_reply_to_status_id
+long? InReplyToStatusId { get; }
+
+//
+// Summary:
+//     In_reply_to_status_id_str
+string InReplyToStatusIdStr { get; }
+
+//
+// Summary:
+//     In_reply_to_user_id
+long? InReplyToUserId { get; }
+
+//
+// Summary:
+//     In_reply_to_user_id_str
+string InReplyToUserIdStr { get; }
+
+//
+// Summary:
+//     In_reply_to_screen_name
+string InReplyToScreenName { get; }
+
+//
+// Summary:
+//     User who created the Tweet
+IUser CreatedBy { get; }
+
+//
+// Summary:
+//     Details the Tweet ID of the user's own retweet (if existent) of this Tweet.
+ITweetIdentifier CurrentUserRetweetIdentifier { get; }
+
+//
+// Summary:
+//     Ids of the users who contributed in the Tweet
+int[] ContributorsIds { get; }
+
+//
+// Summary:
+//     Users who contributed to the authorship of the tweet, on behalf of the official
+//     tweet author.
+IEnumerable<long> Contributors { get; }
+
+//
+// Summary:
+//     Number of retweets related with this tweet
+int RetweetCount { get; }
+
+//
+// Summary:
+//     Extended entities in the tweet. Used by twitter for multiple photos
+ITweetEntities Entities { get; }
+
+//
+// Summary:
+//     Is the tweet Favorited
+bool Favorited { get; }
+
+//
+// Summary:
+//     Number of time the tweet has been Favorited
+int FavoriteCount { get; }
+
+//
+// Summary:
+//     Has the tweet been retweeted
+bool Retweeted { get; }
+
+//
+// Summary:
+//     Is the tweet potentialy sensitive
+bool PossiblySensitive { get; }
+
+//
+// Summary:
+//     Main language used in the tweet
+Language? Language { get; }
+
+//
+// Summary:
+//     Geographic details concerning the location where the tweet has been published
+IPlace Place { get; }
+
+//
+// Summary:
+//     Informed whether a tweet is displayed or not in a specific type of scope. This
+//     property is most of the time null.
+Dictionary<string, object> Scopes { get; }
+
+//
+// Summary:
+//     Streaming tweets requires a filter level. A tweet will be streamed if its filter
+//     level is higher than the one of the stream
+string FilterLevel { get; }
+
+//
+// Summary:
+//     Informs that a tweet has been withheld for a copyright reason
+bool WithheldCopyright { get; }
+
+//
+// Summary:
+//     Countries in which the tweet will be withheld
+IEnumerable<string> WithheldInCountries { get; }
+
+//
+// Summary:
+//     When present, indicates whether the content being withheld is the "status" or
+//     a "user."
+string WithheldScope { get; }
+
+//
+// Summary:
+//     Property used to store the data received from Twitter
+ITweetDTO TweetDTO { get; }
+
+//
+// Summary:
+//     Collection of hashtags associated with a Tweet
+List<IHashtagEntity> Hashtags { get; }
+
+//
+// Summary:
+//     Collection of urls associated with a tweet
+List<IUrlEntity> Urls { get; }
+
+//
+// Summary:
+//     Collection of medias associated with a tweet
+List<IMediaEntity> Media { get; }
+
+//
+// Summary:
+//     Collection of tweets mentioning this tweet
+List<IUserMentionEntity> UserMentions { get; }
+
+//
+// Summary:
+//     Indicates whether the current tweet is a retweet of another tweet
+bool IsRetweet { get; }
+
+//
+// Summary:
+//     If the tweet is a retweet this field provides the tweet that it retweeted
+ITweet RetweetedTweet { get; }
+
+//
+// Summary:
+//     Indicates approximately how many times this Tweet has been quoted by Twitter
+//     users. This property is only available with the Premium and Enterprise tier products.
+int? QuoteCount { get; }
+
+//
+// Summary:
+//     Tweet Id that was retweeted with a quote
+long? QuotedStatusId { get; }
+
+//
+// Summary:
+//     Tweet Id that was retweeted with a quote
+string QuotedStatusIdStr { get; }
+
+//
+// Summary:
+//     Tweet that was retweeted with a quote
+ITweet QuotedTweet { get; }
+
+//
+// Summary:
+//     URL of the tweet on twitter.com
+string Url { get; }
+
+TweetMode TweetMode { get; }
+*/
+
+#endregion

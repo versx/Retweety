@@ -12,4 +12,5 @@
         "name": "Retweety",
         "iconUrl": ""
     },
+    "embedTemplate": "{{url}}"
 }
