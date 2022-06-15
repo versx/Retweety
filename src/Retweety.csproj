@@ -48,6 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.2" />
+    <PackageReference Include="Handlebars.Net.Helpers" Version="2.3.5" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
 
