@@ -6,7 +6,7 @@
     {
         public const string BotName = "Retweety";
 
-        public const string BotVersion = "0.1.0";
+        public static readonly string BotVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public const string BotIconUrl = "";
 
